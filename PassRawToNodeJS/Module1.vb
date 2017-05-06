@@ -1,22 +1,50 @@
-﻿Module Module1
+﻿Imports System.Runtime.CompilerServices
+Imports MongoDB
+
+Module Module1
 
     Sub Main()
-        Dim Wits = getWits()
-        Dim WellID = getWell_id()
-        Dim t = getLastRetrievedTime()
-        Dim rawInstants = getRawUnsent(t)
-        Dim consolidatedRawInstants = consolidateRaw(t, rawInstants)
+        Dim WellLogInterval As Settings.WellLogInterval
+        WellLogInterval = New Settings.WellLogInterval
+        Dim d As Settings.WitsChannels
+        d = Settings.WitsChannels.Latest()
+        WellLogInterval.WitsChannels = d
+        Dim dt = Date.UtcNow.AddHours(-5)
+        WellLogInterval.WellID = dt.Year * 10000000000 + dt.Month * 100000000 + dt.Day * 1000000 + dt.Hour * 10000 + dt.Minute * 100 + dt.Second
+        WellLogInterval.WellName = "test well one"
+        Console.WriteLine(WellLogInterval.WellID)
+        WellLogInterval.Upsert()
+        Console.ReadLine()
+        StartOver()
     End Sub
-    Public Function getWits() As Settings.WitsChannels
 
-    End Function
-    Public Function getWell_id() As Long
+    Sub StartOver()
 
-    End Function
-    Public Function getLastRetrievedTime() As Date
+        Dim WellLogInterval As Settings.WellLogInterval = Settings.WellLogInterval.Latest() ''Select top 1 where complete = false (allows for timemachine
+        Dim Wits = WellLogInterval.WitsChannels
+        Dim CurrentTime = getLastRetrievedTime(WellLogInterval.WellID)
+        If CurrentTime >= WellLogInterval.StopLog Then
+            MarkWellLogIntervalComplete(WellLogInterval)
+            StartOver()
+        Else
+            Dim rawInstants = getRawUnsent(CurrentTime, WellLogInterval.StartLog, WellLogInterval.StopLog)
+            Dim consolidatedRawInstants = consolidateRaw(CurrentTime, rawInstants)
+            ConvertToTracksAndSend(consolidatedRawInstants)
+        End If
+    End Sub
+    Sub MarkWellLogIntervalComplete(WellLogInterval)
+
+    End Sub
+    Public Sub ConvertToTracksAndSend(Raw As List(Of RawInstant))
+        For Each r As RawInstant In Raw
+            Dim nRo As New ReturnObject(r)
+            nRo.Send()
+        Next
+    End Sub
+    Public Function getLastRetrievedTime(WellID As Long) As Date
         Return Nothing
     End Function
-    Public Function getRawUnsent(t As Date) As List(Of RawInstant)
+    Public Function getRawUnsent(CurrentTime As Date, MinimumStartTime As Date, MaximumTime As Date) As List(Of RawInstant)
         Return Nothing
     End Function
     Public Function consolidateRaw(t As Date, raw As List(Of RawInstant)) As List(Of RawInstant)

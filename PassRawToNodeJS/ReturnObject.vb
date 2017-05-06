@@ -6,4 +6,11 @@
         Public Property Name As String
         Public Property Value As Double
     End Class
+    Sub New(r As RawInstant)
+
+    End Sub
+
+    Public Sub Send()
+
+    End Sub
 End Class

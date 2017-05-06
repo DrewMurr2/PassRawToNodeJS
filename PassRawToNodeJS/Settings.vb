@@ -1,6 +1,7 @@
 ﻿Imports MongoDB.Bson.Serialization.Attributes
 Imports MongoDB.Driver
 Imports MongoDB.Bson
+Imports MongoDB.Driver.Core
 <BsonIgnoreExtraElements>
 Public Class Settings
     Public Shared Property Client As New MongoClient()
@@ -10,10 +11,10 @@ Public Class Settings
     <BsonIgnoreExtraElements>
     Public Class WitsChannels
         Public Shared Property collection As IMongoCollection(Of WitsChannels) = SettingsDB.GetCollection(Of WitsChannels)("WitsChannels")
-        Public Property _id As Date
+        <BsonId>
+        Public Property _id As ObjectId = ObjectId.GenerateNewId()
+        Public Property instant As Date = Date.UtcNow()
         Public Property Channels As New List(Of WitsChannel)
-        Public Property StartWits As Date = Date.UtcNow()
-        Public Property StopWits As Date = Date.UtcNow() + New TimeSpan(9999, 9999, 9999, 9999) ''So when this initiallizes it basically goes on forever until stopped
         Public Sub AddChannel(id__ As Integer, name__ As String)
             Channels.Add(New WitsChannel(id__, name__))
         End Sub
@@ -29,14 +30,11 @@ Public Class Settings
         End Class
 
         Public Sub New()
-            _id = Date.UtcNow()
+            '  _id = Date.UtcNow()
         End Sub
 
         Public Shared Function Latest() As WitsChannels
-            Return collection.Find(Function(s) s._id <> Nothing).SortByDescending(Function(s) s._id).Limit(1).ToListAsync().Result(0)
-        End Function
-        Public Shared Function fromTime(t As Date) As WitsChannels
-            Dim d As List(Of WitsChannels) = collection.Find(Function(s) (s._id <> Nothing AndAlso s.StartWits <= t AndAlso s.StopWits >= t)).SortByDescending(Function(s) s._id).Limit(1).ToListAsync().Result
+            Dim d As List(Of WitsChannels) = collection.Find(Function(s) s._id <> Nothing).SortByDescending(Function(s) s.instant).Limit(1).ToListAsync().Result
             If d.Count > 0 Then
                 Return d(0)
             Else
@@ -44,32 +42,53 @@ Public Class Settings
             End If
         End Function
 
+
         Public Sub Save()
             collection.InsertOne(Me)
+        End Sub
+        Public Sub Upsert()
+            collection.ReplaceOneAsync(Function(i) i._id = _id, Me, New UpdateOptions() With {.IsUpsert = True}).Wait()
         End Sub
 
     End Class
 
     Public Class WellLogInterval
         Public Shared Property WellLogIntervalcollection As IMongoCollection(Of WellLogInterval) = SettingsDB.GetCollection(Of WellLogInterval)("WellLogIntervals")
-        Public _id As Date = Date.UtcNow
-        Public Property MachineID As String
+        Public Property MachineID As Long
+        Public Property _id As ObjectId = ObjectId.GenerateNewId()
+        Public Property WellID As Long
         Public Property WellName As String
         Public Property StartLog As Date
-        Public Property StopLog As Date
-        Public Function InterpolationReportcollection() As IMongoCollection(Of Settings.InterpolationInterval)
-            Return WellsDB.GetCollection(Of Settings.InterpolationInterval)(WellName)
-        End Function
+        Public Property StopLog As Date = New Date(3000, 1, 1) ''The year 3000
+        Public Property WitsChannels As Settings.WitsChannels
+        Public Property Complete As Boolean = False ''Allows for time machine
 
         Public Sub Save()
             WellLogIntervalcollection.InsertOne(Me)
         End Sub
-        'Public Function WellBlockCollection() As IMongoCollection(Of Well.Block)
-        '    Return WellsDB.GetCollection(Of Well.Block)(WellName)
-        'End Function
+        Public Sub Upsert()
+            WellLogIntervalcollection.ReplaceOneAsync(Function(i) i._id = _id, Me, New UpdateOptions() With {.IsUpsert = True}).Wait()
+        End Sub
         Public Shared Function Latest() As WellLogInterval
-            Return WellLogIntervalcollection.Find(Function(s) s._id <> Nothing).SortByDescending(Function(s) s._id).Limit(1).ToListAsync().Result(0)
+            Dim w As List(Of WellLogInterval) = WellLogIntervalcollection.Find(Function(s) (s._id <> Nothing AndAlso s.Complete = False)).SortByDescending(Function(s) s._id).Limit(1).ToListAsync().Result
+            If w.Count > 0 Then
+                Return w(0)
+            Else
+                Return Nothing
+            End If
         End Function
+        Public Shared Function fromTime(t As Date) As WellLogInterval
+            Dim d As List(Of WellLogInterval) = WellLogIntervalcollection.Find(Function(s) (s._id <> Nothing AndAlso s.StartLog <= t AndAlso s.StopLog >= t)).SortByDescending(Function(s) s._id).Limit(1).ToListAsync().Result
+            If d.Count > 0 Then
+                Return d(0)
+            Else
+                Return Nothing
+            End If
+        End Function
+        Public Sub MarkAsComplete()
+            Complete = True
+
+        End Sub
         'Public Function LastInterpolatedTime(Optional resolution As Integer = 1) As Date
         '    Dim l = WellBlockCollection().Find(Function(s) (s.StartTime > StartLog AndAlso s.Resolution = resolution)).SortByDescending(Function(s) s.StartTime).Limit(1).ToListAsync().Result()
         '    If l.Count = 0 Then
@@ -105,24 +124,6 @@ Public Class Settings
         '    Return WellBlockCollection.Find(Function(s) (s.DocType = "Block" AndAlso s.Resolution = ResolutionFrom AndAlso s.StartTime >= startTime AndAlso s.EndTime <= StopLog)).SortBy(Function(s) s.StartTime).Limit(limit).ToListAsync().Result
 
         'End Function
-        Public Function DoesWellExist() As Boolean
-            Dim il As String = "InterpolationInterval"
-            Dim l = InterpolationReportcollection.Find(Function(s) s.DocType = 1).Limit(1).ToListAsync.Result
-            If l.Count > 0 Then
-                Return True
-            Else
-                Return False
-            End If
-        End Function
+    End Class
 
-        Public Sub CreateWell()
-            InterpolationReportcollection.InsertOne(New InterpolationInterval())
-        End Sub
-    End Class
-    <BsonIgnoreExtraElements>
-    Public Class InterpolationInterval
-        Public DocType As Integer = 1
-        Public LastInterpolated As Date = Nothing
-        Public SavedTime As Date = Now()
-    End Class
 End Class

@@ -103,6 +103,7 @@
     <Compile Include="RawInstant.vb" />
     <Compile Include="ReturnObject.vb" />
     <Compile Include="Settings.vb" />
+    <Compile Include="Wells.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -124,6 +125,12 @@
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CSharpWorker\CSharpWorker.csproj">
+      <Project>{a3c4c940-cfe2-445d-aaa5-9d29b82328b5}</Project>
+      <Name>CSharpWorker</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
