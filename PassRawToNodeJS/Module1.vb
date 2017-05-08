@@ -4,20 +4,15 @@ Imports MongoDB
 Module Module1
 
     Sub Main()
-        Dim WellLogInterval As Settings.WellLogInterval
-        WellLogInterval = New Settings.WellLogInterval
-        Dim d As Settings.WitsChannels
-        d = Settings.WitsChannels.Latest()
-        WellLogInterval.WitsChannels = d
-        Dim dt = Date.UtcNow.AddHours(-5)
-        WellLogInterval.WellID = dt.Year * 10000000000 + dt.Month * 100000000 + dt.Day * 1000000 + dt.Hour * 10000 + dt.Minute * 100 + dt.Second
-        WellLogInterval.WellName = "test well one"
-        Console.WriteLine(WellLogInterval.WellID)
-        WellLogInterval.Upsert()
+
+        Dim d As New Wells
+        d.Upsert()
+
+        Console.WriteLine(New Date(2017, 1, 1))
         Console.ReadLine()
+
         StartOver()
     End Sub
-
     Sub StartOver()
 
         Dim WellLogInterval As Settings.WellLogInterval = Settings.WellLogInterval.Latest() ''Select top 1 where complete = false (allows for timemachine

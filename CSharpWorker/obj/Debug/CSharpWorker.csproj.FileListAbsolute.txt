@@ -11,3 +11,16 @@ c:\users\roil desktop\documents\visual studio 2015\Projects\PassRawToNodeJS\CSha
 c:\users\roil desktop\documents\visual studio 2015\Projects\PassRawToNodeJS\CSharpWorker\obj\Debug\CSharpWorker.csprojResolveAssemblyReference.cache
 c:\users\roil desktop\documents\visual studio 2015\Projects\PassRawToNodeJS\CSharpWorker\obj\Debug\CSharpWorker.exe
 c:\users\roil desktop\documents\visual studio 2015\Projects\PassRawToNodeJS\CSharpWorker\obj\Debug\CSharpWorker.pdb
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\CSharpWorker.exe.config
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\CSharpWorker.exe
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\CSharpWorker.pdb
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\MongoDB.Bson.dll
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\MongoDB.Driver.Core.dll
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\MongoDB.Driver.dll
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\MongoDB.Bson.xml
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\MongoDB.Driver.xml
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\bin\Debug\MongoDB.Driver.Core.xml
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\obj\Debug\CSharpWorker.csprojResolveAssemblyReference.cache
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\obj\Debug\CSharpWorker.exe
+C:\Dropbox\GitHub\PassRawToNodeJS\CSharpWorker\obj\Debug\CSharpWorker.pdb

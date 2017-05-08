@@ -17,3 +17,22 @@ c:\users\roil desktop\documents\visual studio 2015\Projects\PassRawToNodeJS\Pass
 c:\users\roil desktop\documents\visual studio 2015\Projects\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.exe
 c:\users\roil desktop\documents\visual studio 2015\Projects\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.xml
 c:\users\roil desktop\documents\visual studio 2015\Projects\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.pdb
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\PassRawToNodeJS.exe.config
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.exe
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.xml
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.pdb
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\PassRawToNodeJS.exe
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\PassRawToNodeJS.pdb
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\PassRawToNodeJS.xml
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\CSharpWorker.exe
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\MongoDB.Bson.dll
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\MongoDB.Driver.Core.dll
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\MongoDB.Driver.dll
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\System.Runtime.InteropServices.RuntimeInformation.dll
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\CSharpWorker.pdb
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\MongoDB.Bson.xml
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\MongoDB.Driver.xml
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\bin\Debug\MongoDB.Driver.Core.xml
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.vbprojResolveAssemblyReference.cache
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.Resources.resources
+C:\Dropbox\GitHub\PassRawToNodeJS\PassRawToNodeJS\obj\Debug\PassRawToNodeJS.vbproj.GenerateResource.Cache
